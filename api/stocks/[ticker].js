@@ -1,26 +1,26 @@
 // api/stocks/[ticker].js
 
-const yahooFinance = require("yahoo-finance2").default;
+const yahooFinance = require('yahoo-finance2').default;
 
 module.exports = async (req, res) => {
   try {
-    // 1) Grab the ticker from the dynamic route
+    // Extract the ticker param from the dynamic route
     const { ticker } = req.query;
     if (!ticker) {
       return res.status(400).json({ error: "No ticker provided" });
     }
 
-    // 2) Fetch historical data (1 year back, for example)
+    // Fetch 1 year of historical data (adjust as needed)
     const today = new Date();
     const lastYear = new Date();
     lastYear.setFullYear(today.getFullYear() - 1);
 
     const history = await yahooFinance.historical(ticker, {
-      period1: lastYear,
-      period2: today,
+      period1: lastYear,  // start date
+      period2: today,     // end date
     });
 
-    // 3) Sort oldest to newest, map to { date, close }
+    // Sort oldest to newest, map to { date, close }
     const prices = history
       .sort((a, b) => a.date - b.date)
       .map((entry) => ({
@@ -28,7 +28,7 @@ module.exports = async (req, res) => {
         close: entry.close,
       }));
 
-    // 4) Return JSON
+    // Return JSON
     return res.status(200).json({
       ticker: ticker.toUpperCase(),
       prices: prices,
