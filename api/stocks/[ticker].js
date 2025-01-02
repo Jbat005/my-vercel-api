@@ -3,6 +3,16 @@
 const yahooFinance = require('yahoo-finance2').default;
 
 module.exports = async (req, res) => {
+  // 1) Add CORS headers to allow any domain
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+
+  // 2) Handle preflight OPTIONS request (if any)
+  if (req.method === 'OPTIONS') {
+    // Just respond OK
+    return res.status(200).end();
+  }
+
   try {
     // Extract the ticker param from the dynamic route
     const { ticker } = req.query;
