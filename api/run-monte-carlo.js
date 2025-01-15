@@ -1,4 +1,4 @@
-// my-vercel-api/api/monteCarlo.js
+// my-vercel-api/api/run-monte-carlo.js
 import { runMonteCarloSimulation } from './monteCarlo-lib.js';
 import yahooFinance from 'yahoo-finance2';
 
@@ -22,7 +22,7 @@ export default async function handler(req, res) {
     }
 
     try {
-        const { tickers = [], period = '1y', num_portfolios = 50000 } = req.body || {};
+        const { tickers = [], period = '1y', num_portfolios = 10000 } = req.body || {};
         if (!Array.isArray(tickers) || tickers.length === 0) {
             return res.status(400).json({ error: 'No tickers provided or invalid format' });
         }
