@@ -3,25 +3,14 @@ import { runMonteCarloSimulation } from './monteCarlo-lib.js';
 import yahooFinance from 'yahoo-finance2';
 
 export default async function handler(req, res) {
-  // 1) Handle CORS preflight (OPTIONS) request
-  if (req.method === 'OPTIONS') {
-    // Set allowed origins
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    // Which methods are allowed
-    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-    // Which headers can be sent by the client
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-    // End the preflight request
-    return res.status(200).end();
-  }
-
-  // 2) Allow CORS for the actual request
+  // 1) Add CORS headers to allow any domain
   res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
 
-  // 3) Check the method
-  if (req.method !== 'POST') {
-    // If it's not POST (and not OPTIONS), respond 405
-    return res.status(405).json({ error: 'Method not allowed' });
+  // 2) Handle preflight OPTIONS request (if any)
+  if (req.method === 'OPTIONS') {
+    // Just respond OK
+    return res.status(200).end();
   }
 
   try {
