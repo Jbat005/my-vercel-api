@@ -1,8 +1,8 @@
 {
-    "name": "my-vercel-api",
-    "version": "1.0.0",
-    "dependencies": {
-      "yahoo-finance2": "^2.13.3"
-    }
+  "name": "my-vercel-api",
+  "version": "1.0.0",
+  "dependencies": {
+    "yahoo-finance2": "^2.13.3",
+    "mathjs": "^14.0.1"
   }
-  
+}
