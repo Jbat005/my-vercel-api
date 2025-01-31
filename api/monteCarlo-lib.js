@@ -108,7 +108,7 @@ function buildMeanAndCov(priceData) {
 }
 
 // The main Monte Carlo runner
-function runMonteCarlo(meanReturns, covMatrix, tickers, numPortfolios = 10000) {
+function runMonteCarlo(meanReturns, covMatrix, tickers, numPortfolios = 50000) {
   const n = tickers.length;
   const allReturns = [];
   const allVols = [];
@@ -186,7 +186,7 @@ function runMonteCarlo(meanReturns, covMatrix, tickers, numPortfolios = 10000) {
 }
 
 // Public function to build data and run the simulation
-export async function runMonteCarloSimulation(priceData, numPortfolios = 10000) {
+export async function runMonteCarloSimulation(priceData, numPortfolios = 50000) {
   const { meanReturns, covMatrix, tickers } = buildMeanAndCov(priceData);
   const result = runMonteCarlo(meanReturns, covMatrix, tickers, numPortfolios);
   return result;
